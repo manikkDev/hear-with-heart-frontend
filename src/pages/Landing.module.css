@@ -1,0 +1,311 @@
+/* ─── Hero ─── */
+.hero {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  padding: var(--space-16) 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+}
+
+[data-theme="dark"] .heroBadge {
+  background: rgba(13, 148, 136, 0.12);
+}
+
+.heroTitle {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-6xl));
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-6);
+}
+
+.heroSub {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 520px;
+  margin-bottom: var(--space-8);
+}
+
+.heroCta {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.heroVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.heroGlow {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 63, 94, 0.12), rgba(13, 148, 136, 0.08), transparent 70%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.heroCard {
+  position: relative;
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-3xl);
+  padding: var(--space-10);
+  text-align: center;
+  max-width: 360px;
+  box-shadow: var(--shadow-xl);
+}
+
+.heroEmoji {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+  animation: float 4s ease-in-out infinite;
+}
+
+.heroCard p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+}
+
+/* ─── Stats ─── */
+.statsSection {
+  padding: var(--space-12) 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+.statCard {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.statIcon {
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.statCard h3 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-1);
+}
+
+.statCard p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* ─── Sections ─── */
+.section {
+  padding: var(--space-20) 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--space-12);
+}
+
+.sectionHeader h2 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.sectionHeader p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+/* ─── Features ─── */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.featureCard {
+  padding: var(--space-8);
+}
+
+.featureIcon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--color-primary-50), var(--color-primary-100));
+  color: var(--color-primary);
+  margin-bottom: var(--space-5);
+}
+
+[data-theme="dark"] .featureIcon {
+  background: rgba(13, 148, 136, 0.12);
+}
+
+.featureCard h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+}
+
+.featureCard p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ─── How section ─── */
+.howSection {
+  background: var(--color-surface);
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+.stepCard {
+  text-align: center;
+  padding: var(--space-8);
+}
+
+.stepNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-5);
+}
+
+.stepCard h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+}
+
+.stepCard p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* ─── Research ─── */
+.researchGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.researchCard {
+  padding: var(--space-6);
+}
+
+.researchFact {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.researchCite {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ─── CTA ─── */
+.ctaSection {
+  padding: var(--space-20) 0;
+}
+
+.ctaCard {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+  border-radius: var(--radius-3xl);
+  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-accent-50) 100%);
+  border: 1px solid var(--color-primary-100);
+}
+
+[data-theme="dark"] .ctaCard {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.08), rgba(249, 115, 22, 0.06));
+  border-color: var(--color-border);
+}
+
+.ctaCard h2 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+}
+
+.ctaCard p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .heroInner { grid-template-columns: 1fr; text-align: center; }
+  .heroSub { margin: 0 auto var(--space-8); }
+  .heroCta { justify-content: center; }
+  .heroVisual { margin-top: var(--space-8); }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .featuresGrid { grid-template-columns: 1fr; }
+  .stepsGrid { grid-template-columns: 1fr; }
+  .researchGrid { grid-template-columns: 1fr; }
+}

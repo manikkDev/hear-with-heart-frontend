@@ -1,0 +1,71 @@
+.page { padding: var(--space-8) 0 var(--space-16); }
+
+/* ─── Steps ─── */
+.steps { display: flex; justify-content: center; gap: var(--space-8); margin-bottom: var(--space-10); }
+.step { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 500; }
+.stepDot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--color-border-light); font-weight: 700; font-size: var(--text-sm); transition: all var(--transition-base); }
+.stepActive .stepDot { background: var(--color-primary); color: white; }
+.stepActive { color: var(--color-text); }
+.stepDone .stepDot { background: var(--color-success); color: white; }
+
+/* ─── Form Card ─── */
+.formCard { max-width: 700px; margin: 0 auto; }
+.formCard h2 { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-2xl); margin-bottom: var(--space-6); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.fieldWide { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: var(--space-2); }
+.field span { font-weight: 600; font-size: var(--text-sm); color: var(--color-text); }
+.field input, .field select {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+.field input:focus, .field select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.nav { display: flex; justify-content: space-between; margin-top: var(--space-8); }
+
+.hint { color: var(--color-text-secondary); margin-bottom: var(--space-6); }
+
+/* ─── Disability Selector ─── */
+.disabilityGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.disabilityCard {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+  padding: var(--space-6); border-radius: var(--radius-2xl);
+  border: 2px solid var(--color-border); background: var(--color-surface);
+  color: var(--color-text-secondary); transition: all var(--transition-base);
+  position: relative; cursor: pointer; text-align: center; font-size: var(--text-sm); font-weight: 500;
+}
+.disabilityCard:hover { border-color: var(--dt-color); color: var(--dt-color); }
+.disabilitySelected { border-color: var(--dt-color); background: color-mix(in srgb, var(--dt-color) 8%, transparent); color: var(--dt-color); }
+.disabilityCheck { position: absolute; top: 8px; right: 8px; background: var(--dt-color); color: white; border-radius: 50%; padding: 2px; }
+
+/* ─── View Mode ─── */
+.viewHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-8); }
+.viewHeader h1 { font-size: var(--text-3xl); }
+.viewGrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.viewCard h3 { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-lg); margin-bottom: var(--space-5); color: var(--color-primary); }
+.infoGrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.infoItem { display: flex; flex-direction: column; gap: 2px; }
+.infoLabel { font-size: var(--text-xs); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.infoValue { font-size: var(--text-sm); color: var(--color-text); font-weight: 500; }
+.badgeRow { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.assessmentCard { margin-top: var(--space-6); }
+.assessmentCard h3 { margin-bottom: var(--space-2); }
+.viewActions { display: flex; gap: var(--space-4); margin-top: var(--space-8); }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .disabilityGrid { grid-template-columns: repeat(2, 1fr); }
+  .viewGrid { grid-template-columns: 1fr; }
+  .steps { gap: var(--space-4); }
+}
