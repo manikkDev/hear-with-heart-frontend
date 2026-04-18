@@ -49,6 +49,8 @@
 .subtaskDone { opacity: 0.65; }
 .subtaskDone .subtaskTitle { text-decoration: line-through; }
 .subtaskCheck { width: 20px; height: 20px; accent-color: var(--color-primary); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+.subtaskCheck:disabled { cursor: default; opacity: 0.8; }
+.subtaskDone .subtaskCheck { accent-color: var(--color-success); }
 .subtaskTitle { font-weight: 600; font-size: var(--text-sm); }
 .subtaskHelp { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 2px; line-height: var(--leading-relaxed); }
 

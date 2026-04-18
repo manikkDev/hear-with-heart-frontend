@@ -97,73 +97,75 @@ export default function Assessment() {
     const isLow = prereq?.category === 'Poor' || prereq?.score <= 25;
     return (
       <PageTransition>
-        <div className={`${styles.page} container`}>
-          <motion.div
-            className={styles.lockedCard}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-          >
-            <div className={styles.lockedIconWrap}>
-              <Lock size={32} />
-            </div>
-            <h1>Assessment Completed</h1>
-            <p className={styles.lockedSubtitle}>
-              You have already completed the prerequisite assessment. Your weekly activities
-              are personalised based on the result below.
-            </p>
+        <div className={styles.centerWrap}>
+          <div className={`${styles.page} container`}>
+            <motion.div
+              className={styles.lockedCard}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <div className={styles.lockedIconWrap}>
+                <Lock size={32} />
+              </div>
+              <h1>Assessment Completed</h1>
+              <p className={styles.lockedSubtitle}>
+                You have already completed the prerequisite assessment. Your weekly activities
+                are personalised based on the result below.
+              </p>
 
-            <div className={styles.resultStats}>
-              <div className={styles.resultStat}>
-                <span>Score</span>
-                <strong>{prereq?.score ?? '—'}</strong>
-              </div>
-              <div className={styles.resultStat}>
-                <span>Category</span>
-                <Badge
-                  variant={
-                    prereq?.category === 'Excellent' ? 'success' :
-                    prereq?.category === 'Poor' ? 'warning' : 'info'
-                  }
-                  size="lg"
-                >
-                  {prereq?.category ?? '—'}
-                </Badge>
-              </div>
-              {prereq?.completedAt && (
+              <div className={styles.resultStats}>
                 <div className={styles.resultStat}>
-                  <span>Completed On</span>
-                  <strong>{new Date(prereq.completedAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}</strong>
+                  <span>Score</span>
+                  <strong>{prereq?.score ?? '—'}</strong>
+                </div>
+                <div className={styles.resultStat}>
+                  <span>Category</span>
+                  <Badge
+                    variant={
+                      prereq?.category === 'Excellent' ? 'success' :
+                      prereq?.category === 'Poor' ? 'warning' : 'info'
+                    }
+                    size="lg"
+                  >
+                    {prereq?.category ?? '—'}
+                  </Badge>
+                </div>
+                {prereq?.completedAt && (
+                  <div className={styles.resultStat}>
+                    <span>Completed On</span>
+                    <strong>{new Date(prereq.completedAt).toLocaleDateString('en-IN', { dateStyle: 'medium' })}</strong>
+                  </div>
+                )}
+              </div>
+
+              {isLow && (
+                <div className={styles.referral}>
+                  <AlertTriangle size={18} />
+                  <p>
+                    Based on the score, we gently suggest consulting a professional therapist
+                    for a detailed evaluation. Early intervention makes a huge difference.
+                  </p>
                 </div>
               )}
-            </div>
 
-            {isLow && (
-              <div className={styles.referral}>
-                <AlertTriangle size={18} />
-                <p>
-                  Based on the score, we gently suggest consulting a professional therapist
-                  for a detailed evaluation. Early intervention makes a huge difference.
-                </p>
+              <div className={styles.lockedNotice}>
+                <ShieldCheck size={16} />
+                <span>
+                  To maintain fair, personalised recommendations, the assessment can only be submitted once.
+                  If you believe there was an error, please contact our support team.
+                </span>
               </div>
-            )}
 
-            <div className={styles.lockedNotice}>
-              <ShieldCheck size={16} />
-              <span>
-                To maintain fair, personalised recommendations, the assessment can only be submitted once.
-                If you believe there was an error, please contact our support team.
-              </span>
-            </div>
-
-            <div className={styles.resultActions}>
-              <Button onClick={() => navigate('/dashboard')} icon={LayoutDashboard}>
-                Go to Dashboard
-              </Button>
-              <Button variant="secondary" onClick={() => navigate('/profile')}>
-                View Profile
-              </Button>
-            </div>
-          </motion.div>
+              <div className={styles.resultActions}>
+                <Button onClick={() => navigate('/dashboard')} icon={LayoutDashboard}>
+                  Go to Dashboard
+                </Button>
+                <Button variant="secondary" onClick={() => navigate('/profile')}>
+                  View Profile
+                </Button>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </PageTransition>
     );

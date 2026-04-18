@@ -56,10 +56,9 @@ export default function Dashboard() {
     loadData();
   }, [isAuthenticated, profile, hasPrerequisite, loadData, navigate]);
 
-  const toggleSubtask = async (subtaskId) => {
-    const next = completed.includes(subtaskId)
-      ? completed.filter((id) => id !== subtaskId)
-      : [...completed, subtaskId];
+  const markSubtaskComplete = async (subtaskId) => {
+    if (completed.includes(subtaskId)) return; // Already completed, do nothing
+    const next = [...completed, subtaskId];
     setCompleted(next);
     try {
       const res = await saveWeeklyState(next);
@@ -202,8 +201,10 @@ export default function Dashboard() {
                 <input
                   type="checkbox"
                   checked={checked}
-                  onChange={() => toggleSubtask(sub.id)}
+                  disabled={checked}
+                  onChange={() => markSubtaskComplete(sub.id)}
                   className={styles.subtaskCheck}
+                  title={checked ? 'Task completed' : 'Mark as complete'}
                 />
                 <div>
                   <div className={styles.subtaskTitle}>{i + 1}. {sub.title}</div>
