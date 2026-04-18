@@ -1,125 +1,79 @@
 import { Link } from 'react-router-dom';
-import { Heart, Mail, Phone, MapPin, ExternalLink, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { Heart, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 import LogoIcon from '../ui/LogoIcon';
 import styles from './Footer.module.css';
 
-const QUICK_LINKS = [
-  { to: '/',          label: 'Home' },
-  { to: '/dashboard', label: 'Dashboard' },
-  { to: '/resources', label: 'Resources' },
-  { to: '/milestones',label: 'Milestones' },
-];
-
-const GOVT_LINKS = [
-  { label: 'ADIP Scheme',    url: 'https://www.disabilityaffairs.gov.in' },
-  { label: 'UDID Card',      url: 'https://www.swavlambancard.gov.in' },
-  { label: 'Niramaya ID',    url: 'https://thenationaltrust.gov.in' },
-  { label: 'RBSK Program',   url: 'https://rbsk.gov.in' },
-];
-
-const SOCIAL = [
-  { Icon: Facebook,  href: '#', label: 'Facebook' },
-  { Icon: Twitter,   href: '#', label: 'Twitter' },
-  { Icon: Instagram, href: '#', label: 'Instagram' },
-  { Icon: Youtube,   href: '#', label: 'YouTube' },
-];
-
 export default function Footer() {
-  const { isAuthenticated } = useAuth();
-
   return (
-    <footer className={styles.footer}>
-      <div className={`${styles.inner} container`}>
-
-        {/* ── Brand Column ── */}
-        <div className={styles.brand}>
-          <Link to={isAuthenticated ? '/dashboard' : '/'} className={styles.logo} aria-label="HearWithHeart">
-            <LogoIcon size={36} />
-            <span className={styles.logoText}>
-              Hear<span className={styles.logoAccent}>With</span>Heart
-            </span>
+    <footer className={styles.footerBase}>
+      {/* ── CTA Top Section ── */}
+      <div className={styles.footerTopArea}>
+        <div className={`container ${styles.ctaContainer}`}>
+          <div className={styles.ctaContent}>
+            <h2>Ready to transform your child's journey?</h2>
+            <p>Join thousands of parents dedicated to early intervention at home.</p>
+          </div>
+          <Link to="/register" className={styles.ctaBtn}>
+            Start Free Today <ArrowRight size={18} className={styles.ctaIcon} />
           </Link>
-          <p className={styles.tagline}>
-            Empowering parents to support their child's cognitive, motor, and socio-emotional development — right at home.
+        </div>
+      </div>
+      
+      {/* ── Main Footer Mesh ── */}
+      <div className={`container ${styles.footerMain}`}>
+        <div className={styles.brandCol}>
+          <Link to="/" className={styles.logoLink}>
+            <LogoIcon size={46} />
+            <span className={styles.brandName}>HearWithHeart</span>
+          </Link>
+          <p className={styles.brandDesc}>
+            Bridging the gap in early intervention for children with hearing, speech, and developmental needs. Evidence-based daily activities designed for home.
           </p>
-          <div className={styles.social}>
-            {SOCIAL.map(({ Icon, href, label }) => (
-              <a key={label} href={href} className={styles.socialBtn} aria-label={label} target="_blank" rel="noopener noreferrer">
-                <Icon size={18} />
-              </a>
-            ))}
-          </div>
-          <div className={styles.contact}>
-            <span><Mail size={14} /> support@hearwithheart.in</span>
-            <span><Phone size={14} /> +91 98765 43210</span>
-            <span><MapPin size={14} /> India</span>
+          <div className={styles.contactChips}>
+            <a href="mailto:hello@hearwithheart.in" aria-label="Email us">
+              <Mail size={16} /> hello@hearwithheart.in
+            </a>
+            <a href="tel:1800110031" aria-label="Call helpline">
+              <Phone size={16} /> 1800-11-0031
+            </a>
           </div>
         </div>
 
-        {/* ── Quick Links ── */}
-        <div className={styles.col}>
-          <h4 className={styles.colTitle}>Quick Links</h4>
-          <ul className={styles.linkList}>
-            {QUICK_LINKS.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className={styles.footLink}>{l.label}</Link>
-              </li>
-            ))}
-          </ul>
+        <div className={styles.linksCol}>
+          <h4 className={styles.colHeader}>Platform</h4>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/assessment">Assessment</Link>
+          <Link to="/milestones">Milestones</Link>
+          <Link to="/resources">Expert Resources</Link>
         </div>
 
-        {/* ── Govt Schemes ── */}
-        <div className={styles.col}>
-          <h4 className={styles.colTitle}>Govt. Resources</h4>
-          <ul className={styles.linkList}>
-            {GOVT_LINKS.map((l) => (
-              <li key={l.label}>
-                <a href={l.url} target="_blank" rel="noopener noreferrer" className={styles.footLink}>
-                  {l.label} <ExternalLink size={12} className={styles.ext} />
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className={styles.linksCol}>
+          <h4 className={styles.colHeader}>Govt Schemes</h4>
+          <a href="https://www.disabilityaffairs.gov.in" target="_blank" rel="noreferrer">ADIP Scheme</a>
+          <a href="https://www.swavlambancard.gov.in" target="_blank" rel="noreferrer">UDID Card</a>
+          <a href="https://thenationaltrust.gov.in" target="_blank" rel="noreferrer">Niramaya ID</a>
+          <a href="https://rbsk.gov.in" target="_blank" rel="noreferrer">RBSK Program</a>
         </div>
 
-        {/* ── Helpline ── */}
-        <div className={styles.col}>
-          <h4 className={styles.colTitle}>Helplines</h4>
-          <ul className={styles.helpList}>
-            <li className={styles.helpItem}>
-              <strong>Disability Helpline</strong>
-              <span>1800-11-0031</span>
-            </li>
-            <li className={styles.helpItem}>
-              <strong>AYJNISHD</strong>
-              <span>022-2639-4600</span>
-            </li>
-            <li className={styles.helpItem}>
-              <strong>National Trust</strong>
-              <span>1800-11-0031</span>
-            </li>
-            <li className={styles.helpNote}>
-              All helplines are toll-free across India.
-            </li>
-          </ul>
+        <div className={styles.linksCol}>
+          <h4 className={styles.colHeader}>Organisation</h4>
+          <Link to="/about">About Us</Link>
+          <Link to="/mission">Our Mission</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms of Service</Link>
         </div>
       </div>
 
-      {/* ── Bottom Bar ── */}
-      <div className={styles.bottom}>
-        <div className={`${styles.bottomInner} container`}>
-          <p className={styles.copy}>
-            © {new Date().getFullYear()} HearWithHeart — Made with{' '}
-            <Heart size={13} className={styles.heartIcon} fill="currentColor" />{' '}
-            for every child who deserves a voice.
+      {/* ── Bottom Strip ── */}
+      <div className={styles.footerBottom}>
+        <div className={`container ${styles.bottomInner}`}>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} HearWithHeart. Designed with <Heart size={14} className={styles.heartPulse} fill="currentColor" /> for global accessibility.
           </p>
-          <div className={styles.bottomLinks}>
-            <a href="#" className={styles.bottomLink}>Privacy Policy</a>
-            <span>·</span>
-            <a href="#" className={styles.bottomLink}>Terms of Use</a>
-            <span>·</span>
-            <a href="#" className={styles.bottomLink}>Accessibility</a>
+          <div className={styles.socialMocks}>
+             <a href="#instagram">Instagram</a>
+             <a href="#twitter">Twitter</a>
+             <a href="#linkedin">LinkedIn</a>
           </div>
         </div>
       </div>
