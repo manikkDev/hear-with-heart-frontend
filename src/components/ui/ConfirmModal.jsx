@@ -24,6 +24,7 @@ export default function ConfirmModal({
   confirmLabel = 'Confirm',
   confirmVariant = 'danger',
   icon: Icon = AlertTriangle,
+  variant = 'danger',
 }) {
   return (
     <AnimatePresence>
@@ -51,7 +52,7 @@ export default function ConfirmModal({
               <X size={18} />
             </button>
 
-            <div className={styles.iconWrap}>
+            <div className={`${styles.iconWrap} ${styles[variant]}`}>
               <Icon size={28} />
             </div>
 

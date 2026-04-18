@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Flame, CheckCircle2, TrendingUp, Baby, Play, Quote, ChevronDown, Award } from 'lucide-react';
+import { Flame, CheckCircle2, TrendingUp, Baby, Play, Quote, ChevronDown, Award, Lock } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
@@ -11,6 +11,7 @@ import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
+import ConfirmModal from '../components/ui/ConfirmModal';
 import ProgressRing from '../components/ui/ProgressRing';
 import AnimatedCounter from '../components/ui/AnimatedCounter';
 import PageTransition from '../components/layout/PageTransition';
@@ -26,6 +27,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [taskModal, setTaskModal] = useState(null);
   const [quote] = useState(getRandomQuote);
+  const [confirmComplete, setConfirmComplete] = useState({ open: false, subtaskId: null, subtaskTitle: '' });
 
   const userName = profile?.parent?.name || user?.username || 'Parent';
   const childName = profile?.student?.name || 'Child';
@@ -56,14 +58,22 @@ export default function Dashboard() {
     loadData();
   }, [isAuthenticated, profile, hasPrerequisite, loadData, navigate]);
 
-  const markSubtaskComplete = async (subtaskId) => {
-    if (completed.includes(subtaskId)) return; // Already completed, do nothing
+  const requestComplete = (subtaskId, subtaskTitle) => {
+    if (completed.includes(subtaskId)) return;
+    setConfirmComplete({ open: true, subtaskId, subtaskTitle });
+  };
+
+  const confirmSubtaskComplete = async () => {
+    const { subtaskId } = confirmComplete;
+    if (!subtaskId || completed.includes(subtaskId)) return;
     const next = [...completed, subtaskId];
     setCompleted(next);
+    setConfirmComplete({ open: false, subtaskId: null, subtaskTitle: '' });
     try {
       const res = await saveWeeklyState(next);
       setCompleted(res.weeklyState?.completedSubtasks || next);
       await checkMilestones();
+      toast('Task completed! Great job!', 'success');
     } catch {
       toast('Failed to save progress.', 'error');
     }
@@ -202,7 +212,7 @@ export default function Dashboard() {
                   type="checkbox"
                   checked={checked}
                   disabled={checked}
-                  onChange={() => markSubtaskComplete(sub.id)}
+                  onChange={() => requestComplete(sub.id, sub.title)}
                   className={styles.subtaskCheck}
                   title={checked ? 'Task completed' : 'Mark as complete'}
                 />
@@ -214,6 +224,19 @@ export default function Dashboard() {
             );
           })}
         </Modal>
+
+        {/* Confirm Complete Modal */}
+        <ConfirmModal
+          open={confirmComplete.open}
+          onCancel={() => setConfirmComplete({ open: false, subtaskId: null, subtaskTitle: '' })}
+          onConfirm={confirmSubtaskComplete}
+          title="Lock this task?"
+          message={`"${confirmComplete.subtaskTitle}" will be marked as completed and cannot be undone. This helps track real progress.`}
+          confirmLabel="Yes, Complete Task"
+          confirmVariant="success"
+          variant="success"
+          icon={Lock}
+        />
       </div>
     </PageTransition>
   );

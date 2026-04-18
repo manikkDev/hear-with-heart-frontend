@@ -66,6 +66,15 @@
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
+.success {
+  background: linear-gradient(135deg, var(--color-success) 0%, #34d399 100%);
+  color: var(--color-text-inverse);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+.success:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+}
+
 .full { width: 100%; }
 
 /* Spinner */

@@ -54,6 +54,11 @@
   margin: 0 auto var(--space-5);
 }
 
+.iconWrap.success {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
 .title {
   font-size: var(--text-xl);
   font-weight: 700;
