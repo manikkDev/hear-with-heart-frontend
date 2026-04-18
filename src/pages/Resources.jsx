@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { BookOpen, Lightbulb, ExternalLink, Landmark, Search, Star, Globe, RefreshCw } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BookOpen, Lightbulb, ExternalLink, Landmark, Search, Star, Globe, RefreshCw, Image as ImageIcon, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
 import PageTransition from '../components/layout/PageTransition';
 import { GOVT_SCHEMES, EXPERT_TIPS } from '../utils/helpers';
+import expertTipPoster from '../assets/expert tip.png';
 import styles from './Resources.module.css';
 
 const EXTERNAL_LINKS = [
@@ -24,6 +25,7 @@ export default function Resources() {
   const navigate = useNavigate();
   const [tipIdx, setTipIdx] = useState(0);
   const [schemeSearch, setSchemeSearch] = useState('');
+  const [posterOpen, setPosterOpen] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/login');
@@ -56,6 +58,54 @@ export default function Resources() {
             <p className={styles.tipBody}>{tip.body}</p>
           </motion.div>
         </Card>
+
+        {/* Expert Tip Poster */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}><ImageIcon size={22} /> Expert Guidance</h2>
+          <motion.div
+            className={styles.posterCard}
+            onClick={() => setPosterOpen(true)}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className={styles.posterIconWrap}>
+              <ImageIcon size={24} />
+            </div>
+            <h3>View Expert Tips Poster</h3>
+            <p>Professional guidance for supporting your child's development journey.</p>
+            <span className={styles.posterLink}>Open Poster <ExternalLink size={14} /></span>
+          </motion.div>
+        </section>
+
+        {/* Poster Modal */}
+        <AnimatePresence>
+          {posterOpen && (
+            <motion.div
+              className={styles.posterModal}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setPosterOpen(false)}
+            >
+              <motion.div
+                className={styles.posterModalContent}
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  className={styles.posterClose}
+                  onClick={() => setPosterOpen(false)}
+                  aria-label="Close"
+                >
+                  <X size={24} />
+                </button>
+                <img src={expertTipPoster} alt="Expert Tip Poster" />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Government Schemes */}
         <section className={styles.section}>
