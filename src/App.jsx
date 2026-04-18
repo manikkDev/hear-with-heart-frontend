@@ -4,7 +4,6 @@ import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './components/ui/Toast';
 import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -14,12 +13,8 @@ import Assessment from './pages/Assessment';
 import Milestones from './pages/Milestones';
 import Resources from './pages/Resources';
 
-/** Pages that should NOT show the footer */
-const NO_FOOTER_PATHS = ['/register', '/login'];
-
 function AppShell() {
   const location = useLocation();
-  const showFooter = !NO_FOOTER_PATHS.includes(location.pathname);
 
   return (
     <>
@@ -39,7 +34,6 @@ function AppShell() {
           </Routes>
         </AnimatePresence>
       </div>
-      {showFooter && <Footer />}
     </>
   );
 }

@@ -40,12 +40,14 @@ export default function Dashboard() {
       setTasks(Array.isArray(planRes.tasks) ? planRes.tasks : []);
       const stateRes = await fetchWeeklyState().catch(() => ({ weeklyState: { completedSubtasks: [] } }));
       setCompleted(stateRes.weeklyState?.completedSubtasks || []);
-    } catch {
-      toast('Could not load weekly plan.', 'error');
+    } catch (err) {
+      console.error('Dashboard load error:', err);
+      setTasks([]);
+      setCompleted([]);
     } finally {
       setLoading(false);
     }
-  }, [hasPrerequisite, category, toast]);
+  }, [hasPrerequisite, category]);
 
   useEffect(() => {
     if (!isAuthenticated) { navigate('/login'); return; }
