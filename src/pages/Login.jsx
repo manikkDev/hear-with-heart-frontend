@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Lock, Heart } from 'lucide-react';
+import { Mail, Lock } from 'lucide-react';
+import LogoIcon from '../components/ui/LogoIcon';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import Button from '../components/ui/Button';
@@ -41,7 +42,7 @@ export default function Login() {
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className={styles.header}>
-            <Heart size={32} className={styles.headerIcon} fill="currentColor" />
+            <LogoIcon size={48} />
             <h1>Welcome Back</h1>
             <p>Sign in to continue your child's journey</p>
           </div>

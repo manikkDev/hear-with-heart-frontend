@@ -66,13 +66,152 @@ export function getRandomQuote() {
   return QUOTES[Math.floor(Math.random() * QUOTES.length)];
 }
 
+/**
+ * Disability Types Registry
+ * ─────────────────────────
+ * Each entry carries:
+ *   id       – unique string key stored in DB
+ *   label    – human-readable label
+ *   icon     – lucide-react icon name
+ *   color    – accent colour for the card
+ *   category – logical grouping (used for combination validation)
+ *   desc     – short description shown as tooltip/subtitle
+ */
 export const DISABILITY_TYPES = [
-  { id: 'hearing', label: "Can't Hear", icon: 'Ear', color: '#8b5cf6' },
-  { id: 'speech', label: "Can't Talk", icon: 'MessageCircleOff', color: '#ec4899' },
-  { id: 'both', label: 'Both (Hearing + Speech)', icon: 'EarOff', color: '#f97316' },
-  { id: 'cognitive', label: 'Cognitive Delay', icon: 'Brain', color: '#3b82f6' },
-  { id: 'motor', label: 'Motor Skill Challenge', icon: 'Accessibility', color: '#10b981' },
-  { id: 'socio_emotional', label: 'Socio-Emotional Need', icon: 'Heart', color: '#f43f5e' }
+  /* ── Sensory ── */
+  {
+    id: 'hearing',
+    label: "Hearing Impairment",
+    icon: 'Ear',
+    color: '#8b5cf6',
+    category: 'sensory',
+    desc: "Partial or complete inability to hear",
+  },
+  {
+    id: 'speech',
+    label: "Speech / Language Delay",
+    icon: 'MessageCircleOff',
+    color: '#ec4899',
+    category: 'sensory',
+    desc: "Difficulty producing or understanding speech",
+  },
+  {
+    id: 'visual',
+    label: "Visual Impairment",
+    icon: 'EyeOff',
+    color: '#7c3aed',
+    category: 'sensory',
+    desc: "Low vision or blindness",
+  },
+  /* ── Neurological / Cognitive ── */
+  {
+    id: 'cognitive',
+    label: "Cognitive / Intellectual Delay",
+    icon: 'Brain',
+    color: '#3b82f6',
+    category: 'cognitive',
+    desc: "Significant limitations in intellectual functioning",
+  },
+  {
+    id: 'autism',
+    label: "Autism Spectrum (ASD)",
+    icon: 'Infinity',
+    color: '#06b6d4',
+    category: 'cognitive',
+    desc: "Neurodevelopmental condition affecting social interaction",
+  },
+  {
+    id: 'adhd',
+    label: "ADHD / Attention Deficit",
+    icon: 'Zap',
+    color: '#f59e0b',
+    category: 'cognitive',
+    desc: "Challenges with attention, impulse control & hyperactivity",
+  },
+  /* ── Physical / Motor ── */
+  {
+    id: 'motor_fine',
+    label: "Fine Motor Difficulty",
+    icon: 'Hand',
+    color: '#10b981',
+    category: 'motor',
+    desc: "Difficulty with precise hand/finger movements",
+  },
+  {
+    id: 'motor_gross',
+    label: "Gross Motor / Mobility",
+    icon: 'Accessibility',
+    color: '#14b8a6',
+    category: 'motor',
+    desc: "Difficulty with walking, balance or large-body movements",
+  },
+  {
+    id: 'cerebral_palsy',
+    label: "Cerebral Palsy",
+    icon: 'Activity',
+    color: '#0ea5e9',
+    category: 'motor',
+    desc: "Affecting movement and muscle coordination",
+  },
+  /* ── Socio-Emotional ── */
+  {
+    id: 'socio_emotional',
+    label: "Socio-Emotional Need",
+    icon: 'Heart',
+    color: '#f43f5e',
+    category: 'emotional',
+    desc: "Challenges with emotions, social interaction, or behaviour",
+  },
+  {
+    id: 'anxiety',
+    label: "Anxiety / Selective Mutism",
+    icon: 'ShieldAlert',
+    color: '#fb923c',
+    category: 'emotional',
+    desc: "Persistent anxiety or situation-specific loss of speech",
+  },
+];
+
+/**
+ * Rules for disability combinations that are physically / clinically
+ * impossible or highly improbable.  Each rule fires a warning when
+ * the user selects a flagged combination.
+ *
+ * Format: { ids: string[], message: string }
+ *   ids      – array of disability IDs; warning fires when ALL are selected
+ *   message  – human-readable explanation shown to user
+ */
+export const DISABILITY_CONFLICT_RULES = [
+  {
+    ids: ['hearing', 'speech'],
+    message:
+      "Hearing impairment and speech/language delay often co-occur — but please note that 'Hearing Impairment' covers inability to hear, while 'Speech Delay' covers inability to produce speech. A child can have either or both. If both apply, this is completely valid!",
+    severity: 'info',
+  },
+  {
+    ids: ['visual', 'autism'],
+    message:
+      "Visual impairment and autism can co-occur (called 'dual diagnosis'), though it is uncommon. Please confirm with a clinician that both diagnoses are present.",
+    severity: 'warn',
+  },
+  {
+    ids: ['adhd', 'cognitive'],
+    message:
+      "ADHD and intellectual/cognitive delay are distinct conditions. ADHD alone does not cause intellectual disability. Please confirm both diagnoses with a specialist.",
+    severity: 'warn',
+  },
+  {
+    ids: ['anxiety', 'hearing'],
+    message:
+      "Anxiety-related selective mutism is different from hearing impairment. A child with selective mutism can hear normally but chooses not to speak in certain situations. These rarely co-occur — please double-check.",
+    severity: 'warn',
+  },
+  {
+    ids: ['cerebral_palsy', 'motor_fine', 'motor_gross'],
+    message:
+      "Cerebral Palsy already encompasses both fine and gross motor difficulties. You do not need to select the individual motor categories separately.",
+    severity: 'info',
+  },
 ];
 
 export const GOVT_SCHEMES = [
